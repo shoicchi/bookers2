@@ -1,0 +1,29 @@
+<header>
+	<%= link_to "Home", root_path %>
+	<%= link_to "Users", users_path %>
+	<%= link_to "Books", books_path %>
+	<%= link_to "Log out", destroy_user_session_path, method: :delete %>
+</header>
+
+<%= render 'users/listcurrent', user: current_user %>
+<%= render 'users/listform', book: Book.new %>
+
+
+<table>
+ 	<tr>
+ 		<th>Image</th>
+ 		<th>name</th>
+ 		<th></th>
+ 	</tr>
+
+
+	<% @users.each do |user| %>
+  		<tr>
+ 			<th><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg',  fallback: "no_image.jpg" %></th>
+ 			<th><%= user.name %></th>
+ 			<th><%= link_to "show", user_path(user) %></th>
+ 		</tr>
+ 	<% end %>
+
+ </table>
+
