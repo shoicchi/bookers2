@@ -1,0 +1,31 @@
+<header>
+	<%= link_to "Home", root_path %>
+	<%= link_to "Users", users_path %>
+	<%= link_to "Books", books_path %>
+	<%= link_to "Log out", destroy_user_session_path, method: :delete %>
+</header>
+
+<%= flash[:notice] %>
+
+<%= render 'users/listcurrent', user: @user %>
+<%= render 'users/listform', book: Book.new %>
+
+<h1>Book detail</h1>
+<table>
+<tbody>
+	<tr>
+ 		<td><%= link_to user_path(@book.user) do %>
+ 			<%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, format: 'jpeg',  fallback: "no_image.jpg" %>
+ 			<br>
+ 			<%= @book.user.name %>
+ 			<% end %></td>
+ 		<td><%= link_to @book.title, book_path(@book) %></td>
+ 		<td><%= @book.body %></td>
+
+       <% if @book.user == current_user %>
+       <td><%= link_to 'Edit', edit_book_path(@book) %></td>
+       <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <% end %>
+     </tr>
+</tbody>
+</table>
